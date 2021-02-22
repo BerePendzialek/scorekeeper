@@ -1,15 +1,24 @@
 import './PlayerForm.css'
 import React from 'react'
 
-export default function PlayerForm() {
+export default function PlayerForm({ onAddPlayer }) {
   return (
-    <>
-      <section className="PlayerForm">
-        <label>
-          <h2>Add player:</h2> <br></br>
-          <input placeholder="Player name"></input>
-        </label>
-      </section>
-    </>
+    <form className="PlayerForm" onSubmit={handleSubmit}>
+      <label>
+        Add player:
+        <br />
+        <input name="player" placeholder="Player name" />
+      </label>
+    </form>
   )
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    const form = event.target
+    const input = form.elements.player
+    const name = input.value
+    onAddPlayer(name)
+    form.reset()
+    input.focus()
+  }
 }

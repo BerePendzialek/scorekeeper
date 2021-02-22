@@ -1,3 +1,4 @@
-.PlayerForm {
-  display: grid;
+.PlayerForm input {
+  border: 2px solid #bbb;
+  width: 100%;
 }
