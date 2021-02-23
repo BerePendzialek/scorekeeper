@@ -1,5 +1,5 @@
-import './App.css'
 import { useState } from 'react'
+import styled from 'styled-components/macro'
 import Button from './components/Button/Button'
 import AppHeader from './components/Header/AppHeader'
 import HistoryEntry from './components/HistoryEntry/HistoryEntry'
@@ -7,7 +7,6 @@ import Input from './components/Input/Input'
 import Navigation from './components/Navigation/Navigation'
 import Player from './components/Player/Player'
 import PlayerForm from './components/PlayerForm/PlayerForm'
-import GameForm from './components/GameForm/GameForm'
 
 function App() {
   const [players, setPlayers] = useState([])
@@ -43,7 +42,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <AppGrid>
       <PlayerForm onAddPlayer={handleAddPlayer} />
       {players.map((player, index) => (
         <Player
@@ -125,8 +124,15 @@ function App() {
         activeIndex={0}
         pages={['Play', 'History']}
       />
-    </div>
+    </AppGrid>
   )
 }
 
 export default App
+
+const AppGrid = styled.div`
+  display: grid;
+  padding: 20px;
+  gap: 20px;
+  overflow-y: scroll;
+`
