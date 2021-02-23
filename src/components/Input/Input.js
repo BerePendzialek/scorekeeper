@@ -6,7 +6,7 @@ export default function Input({ labelText, placeholderText }) {
     <label>
       {labelText}
       <br />
-      <input name="player" placeholder={placeholderText} />
+      <input type="text" name="player" placeholder={placeholderText} />
     </label>
   )
 }

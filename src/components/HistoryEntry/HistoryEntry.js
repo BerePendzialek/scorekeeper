@@ -7,7 +7,7 @@ import React from 'react'
 
 export default function HistoryEntry({ nameOfGame, players }) {
   return (
-    <section>
+    <section className="HistoryEntry">
       {nameOfGame}
       <ul>
         {players.map(({ name, score }) => (

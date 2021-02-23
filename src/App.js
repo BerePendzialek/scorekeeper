@@ -1,4 +1,5 @@
 import './App.css'
+import { useState } from 'react'
 import Button from './components/Button/Button'
 import AppHeader from './components/Header/AppHeader'
 import HistoryEntry from './components/HistoryEntry/HistoryEntry'
@@ -6,34 +7,55 @@ import Input from './components/Input/Input'
 import Navigation from './components/Navigation/Navigation'
 import Player from './components/Player/Player'
 import PlayerForm from './components/PlayerForm/PlayerForm'
+import GameForm from './components/GameForm/GameForm'
 
 function App() {
+  const [players, setPlayers] = useState([])
+
+  function handleAddPlayer(name) {
+    setPlayers(oldPlayers => [...oldPlayers, { name, score: 0 }])
+  }
+
+  function resetAll() {
+    setPlayers([])
+  }
+
+  function resetScore() {
+    setPlayers(players.map(player => ({ ...player, score: 0 })))
+  }
+
+  function handlePlus(index) {
+    const currentPlayer = players[index]
+    setPlayers([
+      ...players.slice(0, index),
+      { ...currentPlayer, score: currentPlayer.score + 1 },
+      ...players.slice(index + 1),
+    ])
+  }
+
+  function handleMinus(index) {
+    const currentPlayer = players[index]
+    setPlayers([
+      ...players.slice(0, index),
+      { ...currentPlayer, score: currentPlayer.score - 1 },
+      ...players.slice(index + 1),
+    ])
+  }
+
   return (
     <div className="App">
-      <PlayerForm onAddPlayer={name => console.log(name)} />
+      <PlayerForm onAddPlayer={handleAddPlayer} />
+      {players.map((player, index) => (
+        <Player
+          name={player.name}
+          score={player.score}
+          onPlus={() => handlePlus(index)}
+          onMinus={() => handleMinus(index)}
+        />
+      ))}
 
-      <Player
-        name="John Doe"
-        score="10"
-        onPlus={() => console.log('onPlus')}
-        onMinus={() => console.log('onMinus')}
-      />
-
-      <Player
-        name="Jane Doe"
-        score="20"
-        onPlus={() => console.log('onPlus')}
-        onMinus={() => console.log('onMinus')}
-      />
-
-      <Button
-        text="Reset scores"
-        onClick={() => console.log('Reset scores')}
-      ></Button>
-      <Button
-        text="Reset all"
-        onClick={() => console.log('Reset all')}
-      ></Button>
+      <Button text="Reset scores" onClick={resetScore}></Button>
+      <Button text="Reset all" onClick={resetAll}></Button>
 
       <p>_______________</p>
 
