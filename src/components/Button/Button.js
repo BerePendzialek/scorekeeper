@@ -1,11 +1,8 @@
-import React from 'react'
 import styled from 'styled-components/macro'
 
-export default function Button({ text, onClick, isReseted }) {
-  return <ButtonMain onClick={onClick}>{text}</ButtonMain>
-}
-
-const ButtonMain = styled.button`
-  padding: 5px;
-  background: #bbb;
+export default styled.button`
+  background-color: ${props => (props.isActive ? '#333' : 'lightgray')};
+  ${props => props.isActive && 'color: white;'}
+  border: 1px solid black;
+  width: 100%;
 `

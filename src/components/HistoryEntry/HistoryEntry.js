@@ -9,14 +9,12 @@ export default function HistoryEntry({ nameOfGame, players }) {
   return (
     <section className="HistoryEntry">
       {nameOfGame}
-      <ul>
-        {players.map(({ name, score }) => (
-          <li key={name}>
-            {' '}
-            {name}, {score}{' '}
-          </li>
-        ))}
-      </ul>
+      {players.map((player, index) => (
+        <div key={index} className="HistoryEntry__player">
+          <span>{player.name}</span>
+          <span>{player.score}</span>
+        </div>
+      ))}
     </section>
   )
 }

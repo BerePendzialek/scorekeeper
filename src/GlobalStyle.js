@@ -6,11 +6,12 @@ export default createGlobalStyle`
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   background: white;
   font-size: 112.5%;
   font-family: sans-serif;
   padding: 10px;
+  max-width: 600px;
 }
 input, button {
     font-size: inherit;

@@ -1,12 +1,11 @@
 import './Input.css'
 import React from 'react'
 
-export default function Input({ labelText, placeholderText }) {
+export default function Input({ labelText, placeholder, name }) {
   return (
-    <label>
+    <label className="Input">
       {labelText}
-      <br />
-      <input type="text" name="player" placeholder={placeholderText} />
+      <input name={name} placeholder={placeholder} type="text" />
     </label>
   )
 }
