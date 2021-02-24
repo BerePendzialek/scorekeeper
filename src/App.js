@@ -6,11 +6,20 @@ import Header from './components/Header/Header'
 import HistoryEntry from './components/HistoryEntry/HistoryEntry'
 import Navigation from './components/Navigation/Navigation'
 import Player from './components/Player/Player'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function App() {
   const [players, setPlayers] = useState([])
   const [currentPage, setCurrentPage] = useState('play')
   const [nameOfGame, setNameOfGame] = useState('')
+  const [history, setHistory] = useState([])
+
+  function endGame() {
+    setHistory([{ players, nameOfGame, id: uuidv4 }, ...history])
+    setPlayers([])
+    setNameOfGame('')
+    setCurrentPage('play')
+  }
 
   return (
     <AppLayout>
@@ -32,19 +41,15 @@ export default function App() {
             />
           ))}
           <Button onClick={resetScores}>Reset scores</Button>
-          <Button onClick={() => console.log('end game')}>End game</Button>
+          <Button onClick={endGame}>End game</Button>
         </div>
       )}
       {currentPage === 'history' && (
-        <div>
-          <HistoryEntry
-            nameOfGame="Carcassonne"
-            players={[
-              { name: 'John Doe', score: '20' },
-              { name: 'Jane Doe', score: '30' },
-            ]}
-          />
-        </div>
+        <HistoryWrapper>
+          {history.map(({ nameOfGame, players, id }) => (
+            <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
+          ))}
+        </HistoryWrapper>
       )}
 
       {(currentPage === 'play' || currentPage === 'history') && (
@@ -57,14 +62,6 @@ export default function App() {
     setNameOfGame(nameOfGame)
     setPlayers(playerNames.map(name => ({ name, score: 0 })))
     setCurrentPage('game')
-  }
-
-  function handleAddPlayer(name) {
-    setPlayers(oldPlayers => [...oldPlayers, { name, score: 0 }])
-  }
-
-  function resetAll() {
-    setPlayers([])
   }
 
   function resetScores() {
@@ -95,4 +92,8 @@ const AppLayout = styled.div`
   padding: 20px;
   gap: 20px;
   overflow-y: scroll;
+`
+const HistoryWrapper = styled.div`
+  display: grid;
+  gap: 28px;
 `
