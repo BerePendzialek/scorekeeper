@@ -1,5 +1,5 @@
-import './HistoryEntry.css'
 import React from 'react'
+import styled from 'styled-components/macro'
 
 //{players.map(player => (
 //  <li key={player.id}>
@@ -7,14 +7,24 @@ import React from 'react'
 
 export default function HistoryEntry({ nameOfGame, players }) {
   return (
-    <section className="HistoryEntry">
+    <HistoryEntryGrid>
       {nameOfGame}
       {players.map((player, index) => (
-        <div key={index} className="HistoryEntry__player">
+        <HistoryEntryPlayer key={index}>
           <span>{player.name}</span>
           <span>{player.score}</span>
-        </div>
+        </HistoryEntryPlayer>
       ))}
-    </section>
+    </HistoryEntryGrid>
   )
 }
+
+const HistoryEntryGrid = styled.section`
+  display: grid;
+  gap: 10px;
+`
+
+const HistoryEntryPlayer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`

@@ -1,16 +1,20 @@
-import './Navigation.css'
 import React from 'react'
 import Button from '../Button/Button'
+import styled from 'styled-components/macro'
 
 export default function Navigation({ onNavigate, activeIndex }) {
   return (
-    <nav className="Navigation">
+    <NavigationStyled>
       <Button isActive={activeIndex === 0} onClick={() => onNavigate(0)}>
         Play
       </Button>
       <Button isActive={activeIndex === 1} onClick={() => onNavigate(1)}>
         History
       </Button>
-    </nav>
+    </NavigationStyled>
   )
 }
+
+const NavigationStyled = styled.nav`
+  display: flex;
+`

@@ -1,11 +1,23 @@
-import './Input.css'
 import React from 'react'
+import styled from 'styled-components/macro'
 
 export default function Input({ labelText, placeholder, name }) {
   return (
-    <label className="Input">
+    <styledLabel>
       {labelText}
-      <input name={name} placeholder={placeholder} type="text" />
-    </label>
+      <styledInput
+        name={name}
+        placeholder={placeholder}
+        type="text"
+      ></styledInput>
+    </styledLabel>
   )
 }
+
+const styledLabel = styled.label`
+  display: grid;
+  gap: 4px;
+`
+const styledInput = styled.input`
+  border: 2px solid #bbb;
+`
