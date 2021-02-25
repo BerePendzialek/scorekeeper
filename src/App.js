@@ -5,46 +5,51 @@ import Navigation from './components/Navigation/Navigation'
 import { v4 as uuidv4 } from 'uuid'
 import GamePage from './components/GamePage/GamePage'
 import HistoryPage from './components/HistoryPage/HistoryPage'
+import { Route, Switch, useHistory } from 'react-router-dom'
 
 export default function App() {
   const [players, setPlayers] = useState([])
-  const [currentPage, setCurrentPage] = useState('create')
   const [nameOfGame, setNameOfGame] = useState('')
   const [history, setHistory] = useState([])
+  const { push } = useHistory()
 
   return (
     <AppLayout>
-      {currentPage === 'create' && <CreatePage onCreateGame={createGame} />}
-
-      {currentPage === 'game' && (
-        <GamePage
-          nameOfGame={nameOfGame}
-          players={players}
-          onPlus={handlePlus}
-          onMinus={handleMinus}
-          onReset={resetScores}
-          onEnd={endGame}
-        />
-      )}
-      {currentPage === 'history' && <HistoryPage history={history} />}
-
-      {(currentPage === 'create' || currentPage === 'history') && (
-        <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
-      )}
+      <Switch>
+        <Route exact path="/">
+          <CreatePage onCreateGame={createGame} />
+        </Route>
+        <Route path="/game">
+          <GamePage
+            nameOfGame={nameOfGame}
+            players={players}
+            onPlus={handlePlus}
+            onMinus={handleMinus}
+            onReset={resetScores}
+            onEnd={endGame}
+          />
+        </Route>
+        <Route path="/history">
+          <HistoryPage history={history} />
+        </Route>
+      </Switch>
+      <Route exact path={['/', '/history']}>
+        <Navigation />
+      </Route>
     </AppLayout>
   )
 
   function createGame({ nameOfGame, playerNames }) {
     setNameOfGame(nameOfGame)
     setPlayers(playerNames.map(name => ({ name, score: 0 })))
-    setCurrentPage('game')
+    push('/game')
   }
 
   function endGame() {
     setHistory([{ players, nameOfGame, id: uuidv4 }, ...history])
     setPlayers([])
     setNameOfGame('')
-    setCurrentPage('create')
+    push('/')
   }
 
   function resetScores() {
