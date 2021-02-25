@@ -6,10 +6,10 @@ export default function Navigation({ onNavigate, currentPage }) {
   return (
     <NavigationStyled>
       <Button
-        isActive={currentPage === 'play'}
-        onClick={() => onNavigate('play')}
+        isActive={currentPage === 'create'}
+        onClick={() => onNavigate('create')}
       >
-        Play
+        Create
       </Button>
       <Button
         isActive={currentPage === 'history'}
