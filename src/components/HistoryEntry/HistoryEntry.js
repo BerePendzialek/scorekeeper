@@ -1,14 +1,19 @@
 import React from 'react'
 import styled from 'styled-components/macro'
+import { Link } from 'react-router-dom'
 
-//{players.map(player => (
-//  <li key={player.id}>
-//  {player.name} {player.score} )
-
-export default function HistoryEntry({ nameOfGame, players }) {
+export default function HistoryEntry({
+  nameOfGame,
+  players,
+  isNameALink = true,
+}) {
   return (
     <HistoryEntryGrid>
-      {nameOfGame}
+      {isNameALink ? (
+        <Link to={`/history/${nameOfGame}`}>{nameOfGame}</Link>
+      ) : (
+        nameOfGame
+      )}
       {players.map((player, index) => (
         <HistoryEntryPlayer key={index}>
           <span>{player.name}</span>

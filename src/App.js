@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import GamePage from './components/GamePage/GamePage'
 import HistoryPage from './components/HistoryPage/HistoryPage'
 import { Route, Switch, useHistory } from 'react-router-dom'
+import HistoryDetailPage from './components/HistoryDetailPage/HistoryDetailPage'
 
 export default function App() {
   const [players, setPlayers] = useState([])
@@ -29,11 +30,17 @@ export default function App() {
             onEnd={endGame}
           />
         </Route>
-        <Route path="/history">
+        <Route exact path="/history">
           <HistoryPage history={history} />
         </Route>
+        <Route path="/history/:nameOfGame">
+          <HistoryDetailPage history={history} />
+        </Route>
       </Switch>
-      <Route exact path={['/', '/history']}>
+      <Route exact path="/">
+        <Navigation />
+      </Route>
+      <Route path="/history">
         <Navigation />
       </Route>
     </AppLayout>
