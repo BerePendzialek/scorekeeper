@@ -5,11 +5,11 @@ import HistoryEntry from '../HistoryEntry/HistoryEntry'
 import { HistoryWrapper } from '../HistoryPage/HistoryPage'
 
 export default function HistoryDetailPage({ history }) {
-  const { nameOfGame } = useParams
+  const { nameOfGame } = useParams()
   const games = history.filter(entry => entry.nameOfGame === nameOfGame)
   return (
     <div>
-      <Header> {nameOfGame}</Header>
+      <Header>{nameOfGame}</Header>
       <HistoryWrapper>
         {games.map((game, index) => (
           <HistoryEntry

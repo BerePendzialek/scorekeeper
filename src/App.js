@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import CreatePage from './components/CreatePage/CreatePage'
 import Navigation from './components/Navigation/Navigation'
@@ -7,12 +7,17 @@ import GamePage from './components/GamePage/GamePage'
 import HistoryPage from './components/HistoryPage/HistoryPage'
 import { Route, Switch, useHistory } from 'react-router-dom'
 import HistoryDetailPage from './components/HistoryDetailPage/HistoryDetailPage'
+import { loadFromLocal, saveToLocal } from './lib/localStorage'
 
 export default function App() {
   const [players, setPlayers] = useState([])
   const [nameOfGame, setNameOfGame] = useState('')
-  const [history, setHistory] = useState([])
+  const [history, setHistory] = useState(loadFromLocal('history') ?? [])
   const { push } = useHistory()
+
+  useEffect(() => {
+    saveToLocal('history', history)
+  }, [history])
 
   return (
     <AppLayout>
