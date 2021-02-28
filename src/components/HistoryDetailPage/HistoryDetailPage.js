@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import Header from '../Header/Header'
 import HistoryEntry from '../HistoryEntry/HistoryEntry'
 import { HistoryWrapper } from '../HistoryPage/HistoryPage'
+import 'jest-styled-components'
 
 export default function HistoryDetailPage({ history }) {
   const { nameOfGame } = useParams()
